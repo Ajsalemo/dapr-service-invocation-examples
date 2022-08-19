@@ -10,7 +10,8 @@ def index():
 
 @app.route("/api/dapr")
 def dapr():
-    r = requests.get("http://localhost:3500/invoke/python/method/api/backend")
+    # dapr calls are made over localhost
+    r = requests.get("http://localhost:3500/v1.0/invoke/backend/method/api/backend")
     return { "artists": r.json() }
 
 
