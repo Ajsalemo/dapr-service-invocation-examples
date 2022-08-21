@@ -15,6 +15,6 @@ def dapr():
         'backend',
         'api/backend'
     )
-    return { "artists": res.text() }
+    return { "artists": res.json() }
 
 

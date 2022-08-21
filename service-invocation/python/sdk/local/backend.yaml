@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
       - name: backend-app
-        image: python-service-invocation-sdk-badkend:latest
+        image: python-service-invocation-sdk-backend:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8000
