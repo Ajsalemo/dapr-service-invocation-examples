@@ -178,7 +178,7 @@
                     "containers": [
                         {
                             "image": "[concat(parameters('azureContainerRegistryServerUrl'), '/', parameters('azureContainerRegistryBackEndImageName'), ':', parameters('azureContainerRegistryBackEndImageTag'))]",
-                            "name": "serviceinvocationsdkbackendend",
+                            "name": "serviceinvocationsdkbackend",
                             "resources": {
                                 "cpu": 0.5,
                                 "memory": "1.0Gi"
