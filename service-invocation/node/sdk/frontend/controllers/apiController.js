@@ -10,7 +10,7 @@ const client = new DaprClient(daprHost, daprPort);
 
 export const apiController = router.get("/", async (_req, res) => {
   try {
-    const response = await client.invoker.invoke(serviceAppId , serviceMethod , HttpMethod.GET);
+    const response = await client.invoker.invoke(serviceAppId, serviceMethod, HttpMethod.GET);
     console.log(response)
     res.json({ msg: response });
   } catch (error) {

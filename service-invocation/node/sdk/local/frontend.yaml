@@ -35,7 +35,7 @@ spec:
     spec:
       containers:
       - name: frontend-app
-        image: node-service-invocation-http-frontend:latest
+        image: node-service-invocation-sdk-frontend:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3000

@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
       - name: backend-app
-        image: node-service-invocation-http-backend:latest
+        image: node-service-invocation-sdk-backend:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3000
