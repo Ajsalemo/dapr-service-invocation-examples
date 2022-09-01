@@ -87,7 +87,7 @@
         {
             "type": "Microsoft.App/containerApps",
             "apiVersion": "2022-03-01",
-            "name": "serviceinvocationhttpfrontend",
+            "name": "serviceinvocationsdkfrontend",
             "location": "[parameters('location')]",
             "dependsOn": [
                 "[resourceId('Microsoft.App/managedEnvironments/', parameters('environment_name'))]"
@@ -124,7 +124,7 @@
                     "containers": [
                         {
                             "image": "[concat(parameters('azureContainerRegistryServerUrl'), '/', parameters('azureContainerRegistryFrontEndImageName'), ':', parameters('azureContainerRegistryFrontEndImageTag'))]",
-                            "name": "serviceinvocationhttpfrontend",
+                            "name": "serviceinvocationsdkfrontend",
                             "resources": {
                                 "cpu": 0.5,
                                 "memory": "1.0Gi"
@@ -141,7 +141,7 @@
         {
             "type": "Microsoft.App/containerApps",
             "apiVersion": "2022-03-01",
-            "name": "serviceinvocationhttpbackendend",
+            "name": "serviceinvocationsdkbackend",
             "location": "[parameters('location')]",
             "dependsOn": [
                 "[resourceId('Microsoft.App/managedEnvironments/', parameters('environment_name'))]"
@@ -178,7 +178,7 @@
                     "containers": [
                         {
                             "image": "[concat(parameters('azureContainerRegistryServerUrl'), '/', parameters('azureContainerRegistryBackEndImageName'), ':', parameters('azureContainerRegistryBackEndImageTag'))]",
-                            "name": "serviceinvocationhttpbackendend",
+                            "name": "serviceinvocationsdkbackend",
                             "resources": {
                                 "cpu": 0.5,
                                 "memory": "1.0Gi"
