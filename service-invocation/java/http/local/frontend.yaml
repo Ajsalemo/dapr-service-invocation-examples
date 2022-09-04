@@ -31,7 +31,6 @@ spec:
         dapr.io/app-id: "frontend"
         dapr.io/app-port: "8080"
         dapr.io/enable-api-logging: "true"
-
     spec:
       containers:
       - name: frontend-app
