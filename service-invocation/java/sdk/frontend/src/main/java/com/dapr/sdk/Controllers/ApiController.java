@@ -18,10 +18,10 @@ public class ApiController {
     String DAPR_BACKEND_METHOD = "api/get/cars";
 
     @GetMapping("/api/dapr")
-    public Mono<String> apiController() throws Exception {
+    public Mono<List> apiController() throws Exception {
         try (DaprClient client = (new DaprClientBuilder()).build()) {
-            Mono<String> apiResponse = client
-                    .invokeMethod(DAPR_BACKEND_SERVICE, DAPR_BACKEND_METHOD, null, HttpExtension.GET, String.class);
+            Mono<List> apiResponse = client
+                    .invokeMethod(DAPR_BACKEND_SERVICE, DAPR_BACKEND_METHOD, null, HttpExtension.GET, List.class);
 
             System.out.println(apiResponse);
             return apiResponse;
