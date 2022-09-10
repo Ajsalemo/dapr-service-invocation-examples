@@ -11,3 +11,4 @@ az deployment group create \
       azureContainerRegistryBackEndImageName="$AZURE_CONTAINER_REGISTRY_BACKEND_IMAGE_NAME" \
       azureContainerRegistryFrontEndImageTag="$AZURE_CONTAINER_REGISTRY_FRONTEND_IMAGE_TAG" \
       azureContainerRegistryBackEndImageTag="$AZURE_CONTAINER_REGISTRY_BACKEND_IMAGE_TAG"
+

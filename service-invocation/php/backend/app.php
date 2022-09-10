@@ -7,3 +7,4 @@ $carsArr = array(
     "VW"
 );
 
+echo json_encode($carsArr);
