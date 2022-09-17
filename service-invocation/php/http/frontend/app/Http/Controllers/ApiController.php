@@ -9,7 +9,7 @@ class ApiController extends Controller
 {
     public function apiController()
     {
-        $res = Http::get('http://localhost:350/v1.0/method/backend/api/cars/get');
+        $res = Http::get('http://localhost:3500/v1.0/invoke/backend/method/api/cars/get');
         return view('api', ['data' => $res->json()]);
     }
 }

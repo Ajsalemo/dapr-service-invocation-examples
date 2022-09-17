@@ -7,7 +7,7 @@ spec:
     app: backend-app
   ports:
     - protocol: TCP
-      port: 8000
+      port: 80
       nodePort: 31321
   type: NodePort
 ---
@@ -29,7 +29,7 @@ spec:
       annotations:
         dapr.io/enabled: "true"
         dapr.io/app-id: "backend"
-        dapr.io/app-port: "8000"
+        dapr.io/app-port: "80"
         dapr.io/enable-api-logging: "true"
     spec:
       containers:
@@ -37,4 +37,7 @@ spec:
         image: php-service-invocation-http-backend:latest
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 8000
+        - containerPort: 80
+        env:
+        - name: APP_KEY
+          value: "yourlaravelkey"
