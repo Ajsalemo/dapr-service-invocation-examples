@@ -1,0 +1,13 @@
+az deployment group create \
+  --resource-group "$RESOURCE_GROUP" \
+  --template-file ./deploy.json \
+  --parameters \
+      environment_name="$CONTAINERAPPS_ENVIRONMENT" \
+      location="$LOCATION" \
+      azureContainerRegistryServerUrl="$AZURE_CONTAINER_REGISTRY_SERVER_URL" \
+      azureContainerRegistryPassword="$AZURE_CONTAINER_REGISTRY_PASSWORD" \
+      azureContainerRegistryUsername="$AZURE_CONTAINER_REGISTRY_USERNAME" \
+      azureContainerRegistryFrontEndImageName="$AZURE_CONTAINER_REGISTRY_FRONTEND_IMAGE_NAME" \
+      azureContainerRegistryBackEndImageName="$AZURE_CONTAINER_REGISTRY_BACKEND_IMAGE_NAME" \
+      azureContainerRegistryFrontEndImageTag="$AZURE_CONTAINER_REGISTRY_FRONTEND_IMAGE_TAG" \
+      azureContainerRegistryBackEndImageTag="$AZURE_CONTAINER_REGISTRY_BACKEND_IMAGE_TAG"
