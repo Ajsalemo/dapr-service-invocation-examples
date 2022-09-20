@@ -10,4 +10,6 @@ az deployment group create \
       azureContainerRegistryFrontEndImageName="$AZURE_CONTAINER_REGISTRY_FRONTEND_IMAGE_NAME" \
       azureContainerRegistryBackEndImageName="$AZURE_CONTAINER_REGISTRY_BACKEND_IMAGE_NAME" \
       azureContainerRegistryFrontEndImageTag="$AZURE_CONTAINER_REGISTRY_FRONTEND_IMAGE_TAG" \
-      azureContainerRegistryBackEndImageTag="$AZURE_CONTAINER_REGISTRY_BACKEND_IMAGE_TAG"
+      azureContainerRegistryBackEndImageTag="$AZURE_CONTAINER_REGISTRY_BACKEND_IMAGE_TAG" \
+      frontEndAppKey="$FRONT_END_APP_KEY" \
+      backEndAppKey="$BACK_END_APP_KEY"

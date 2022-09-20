@@ -29,6 +29,12 @@
         },
         "azureContainerRegistryBackEndImageTag": {
             "type": "string"
+        },
+        "frontEndAppKey": {
+            "type": "string"
+        },
+        "backEndAppKey": {
+            "type": "string"
         }
     },
     "variables": {
@@ -128,7 +134,15 @@
                             "resources": {
                                 "cpu": 0.5,
                                 "memory": "1.0Gi"
-                            }
+                            },
+                            // The APP_KEY is REQUIRED by Laravel - see the docs here: https://laravel.com/docs/9.x/encryption#configuration
+                            // The parameter just dictates which APP_KEY value needs to go to which container
+                            "env": [
+                                {
+                                    "name": "APP_KEY",
+                                    "value": "[parameters('frontEndAppKey')]"
+                                }
+                            ]
                         }
                     ],
                     "scale": {
@@ -182,7 +196,15 @@
                             "resources": {
                                 "cpu": 0.5,
                                 "memory": "1.0Gi"
-                            }
+                            },
+                            // The APP_KEY is REQUIRED by Laravel - see the docs here: https://laravel.com/docs/9.x/encryption#configuration
+                            // The parameter just dictates which APP_KEY value needs to go to which container
+                            "env": [
+                                {
+                                    "name": "APP_KEY",
+                                    "value": "[parameters('backEndAppKey')]"
+                                }
+                            ]
                         }
                     ],
                     "scale": {
