@@ -8,7 +8,7 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      nodePort: 31320
+      nodePort: 31322
   type: NodePort
 ---
 apiVersion: apps/v1
@@ -41,4 +41,4 @@ spec:
         - containerPort: 80
         env:
         - name: APP_KEY
-          value: "yourlaravelkey"
+          value: "base64:somevalue"

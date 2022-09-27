@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use Dapr\Client\DaprClient;
+use Dapr\Client\AppId;
+
 class ApiController extends Controller
 {
-    public function apiController(\Dapr\Client\DaprClient $client)
+    public function apiController()
     {
-        $res = $client->invokeMethod('GET', new \Dapr\Client\AppId('backend'), "api/cars/get")
+        $client = DaprClient::clientBuilder()->build();
+        $appId = new AppId('backend');
+        $res = $client->invokeMethod('GET', $appId, "api/cars/get")
         ->getBody()
         ->getContents();
-
-        return view('api', ['data' => $res]);
+        echo($res);
+        return view('api', ['data' => json_encode($res)]);
     }
 }
