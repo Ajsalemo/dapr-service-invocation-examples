@@ -14,7 +14,7 @@ class ApiController extends Controller
         $res = $client->invokeMethod('GET', $appId, "api/cars/get")
         ->getBody()
         ->getContents();
-        echo($res);
-        return view('api', ['data' => json_encode($res)]);
+        
+        return view('api', ['data' => json_decode($res)]);
     }
 }
