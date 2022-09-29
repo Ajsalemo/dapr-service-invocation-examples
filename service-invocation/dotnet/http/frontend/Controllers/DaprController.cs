@@ -17,20 +17,14 @@ public class DaprController : ControllerBase
     {
         var httpRequestMessage = new HttpRequestMessage(
             HttpMethod.Get,
-            "http://localhost:8080/api/weatherforecast")
-        {
-            Headers =
-            {
-                { HeaderNames.Accept, "application/vnd.github.v3+json" },
-                { HeaderNames.UserAgent, "HttpRequestsSample" }
-            }
-        };
+            "http://localhost:3500/v1.0/invoke/backend/method/api/weatherforecast")
+        {};
 
         var httpClient = _httpClientFactory.CreateClient();
         var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage);
         var contentStream =
             await httpResponseMessage.Content.ReadAsStringAsync();
-        
+
         return contentStream;
     }
 }
