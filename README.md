@@ -8,3 +8,10 @@ About this repo:
 - The examples are designed so that the `frontend` calls the `backend` of the respective sample.
 - To run this locally, build the Docker image and use the `local` folder to deploy to a local Kubernetes cluster
 - To run this on Azure, build the Docker image and deploy this with the commands in the `deploy` folder -> `commands.txt` file.
+
+SDKs:
+- [Dotnet](https://docs.dapr.io/developing-applications/sdks/dotnet/)
+- [Python](https://docs.dapr.io/developing-applications/sdks/python/)
+- [Java](https://docs.dapr.io/developing-applications/sdks/java/)
+- [PHP](https://docs.dapr.io/developing-applications/sdks/php/)
+- [JavaScript](https://docs.dapr.io/developing-applications/sdks/js/)
