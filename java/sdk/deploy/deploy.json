@@ -1,0 +1,196 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "environment_name": {
+            "type": "string"
+        },
+        "location": {
+            "defaultValue": "eastus",
+            "type": "string"
+        },
+        "azureContainerRegistryServerUrl": {
+            "type": "string"
+        },
+        "azureContainerRegistryPassword": {
+            "type": "securestring"
+        },
+        "azureContainerRegistryUsername": {
+            "type": "string"
+        },
+        "azureContainerRegistryFrontEndImageName": {
+            "type": "string"
+        },
+        "azureContainerRegistryFrontEndImageTag": {
+            "type": "string"
+        },
+        "azureContainerRegistryBackEndImageName": {
+            "type": "string"
+        },
+        "azureContainerRegistryBackEndImageTag": {
+            "type": "string"
+        }
+    },
+    "variables": {
+        "logAnalyticsWorkspaceName": "[concat('logs-', parameters('environment_name'))]",
+        "appInsightsName": "[concat('appins-', parameters('environment_name'))]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "apiVersion": "2021-06-01",
+            "name": "[variables('logAnalyticsWorkspaceName')]",
+            "location": "[parameters('location')]",
+            "properties": {
+                "retentionInDays": 30,
+                "features": {
+                    "searchVersion": 1
+                },
+                "sku": {
+                    "name": "PerGB2018"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Insights/components",
+            "apiVersion": "2020-02-02",
+            "name": "[variables('appInsightsName')]",
+            "location": "[parameters('location')]",
+            "kind": "web",
+            "dependsOn": [
+                "[resourceId('Microsoft.OperationalInsights/workspaces/', variables('logAnalyticsWorkspaceName'))]"
+            ],
+            "properties": {
+                "Application_Type": "web",
+                "WorkspaceResourceId": "[resourceId('Microsoft.OperationalInsights/workspaces/', variables('logAnalyticsWorkspaceName'))]"
+            }
+        },
+        {
+            "type": "Microsoft.App/managedEnvironments",
+            "apiVersion": "2022-03-01",
+            "name": "[parameters('environment_name')]",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Insights/components/', variables('appInsightsName'))]"
+            ],
+            "properties": {
+                "daprAIInstrumentationKey": "[reference(resourceId('Microsoft.Insights/components/', variables('appInsightsName')), '2020-02-02').InstrumentationKey]",
+                "appLogsConfiguration": {
+                    "destination": "log-analytics",
+                    "logAnalyticsConfiguration": {
+                        "customerId": "[reference(resourceId('Microsoft.OperationalInsights/workspaces/', variables('logAnalyticsWorkspaceName')), '2021-06-01').customerId]",
+                        "sharedKey": "[listKeys(resourceId('Microsoft.OperationalInsights/workspaces/', variables('logAnalyticsWorkspaceName')), '2021-06-01').primarySharedKey]"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.App/containerApps",
+            "apiVersion": "2022-03-01",
+            "name": "serviceinvocationhttpfrontend",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.App/managedEnvironments/', parameters('environment_name'))]"
+            ],
+            "properties": {
+                "managedEnvironmentId": "[resourceId('Microsoft.App/managedEnvironments/', parameters('environment_name'))]",
+                "configuration": {
+                    "ingress": {
+                        "external": true,
+                        "targetPort": 8080
+                    },
+                    "dapr": {
+                        "enabled": true,
+                        "appId": "frontend",
+                        "appProcotol": "http",
+                        "appPort": 8080
+                    },
+                    "secrets": [
+                        {
+
+                            "name": "azurecontainerregistrypasswordref",
+                            "value": "[parameters('azureContainerRegistryPassword')]"
+                        }
+                    ],
+                    "registries": [
+                        {
+                            "server": "[parameters('azureContainerRegistryServerUrl')]",
+                            "username": "[parameters('azureContainerRegistryUsername')]",
+                            "passwordSecretRef": "azurecontainerregistrypasswordref"
+                        }
+                    ]
+                },
+                "template": {
+                    "containers": [
+                        {
+                            "image": "[concat(parameters('azureContainerRegistryServerUrl'), '/', parameters('azureContainerRegistryFrontEndImageName'), ':', parameters('azureContainerRegistryFrontEndImageTag'))]",
+                            "name": "serviceinvocationhttpfrontend",
+                            "resources": {
+                                "cpu": 0.5,
+                                "memory": "1.0Gi"
+                            }
+                        }
+                    ],
+                    "scale": {
+                        "minReplicas": 1,
+                        "maxReplicas": 1
+                    }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.App/containerApps",
+            "apiVersion": "2022-03-01",
+            "name": "serviceinvocationhttpbackend",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.App/managedEnvironments/', parameters('environment_name'))]"
+            ],
+            "properties": {
+                "managedEnvironmentId": "[resourceId('Microsoft.App/managedEnvironments/', parameters('environment_name'))]",
+                "configuration": {
+                    "ingress": {
+                        "external": true,
+                        "targetPort": 8080
+                    },
+                    "dapr": {
+                        "enabled": true,
+                        "appId": "backend",
+                        "appProcotol": "http",
+                        "appPort": 8080
+                    },
+                    "secrets": [
+                        {
+
+                            "name": "azurecontainerregistrypasswordref",
+                            "value": "[parameters('azureContainerRegistryPassword')]"
+                        }
+                    ],
+                    "registries": [
+                        {
+                            "server": "[parameters('azureContainerRegistryServerUrl')]",
+                            "username": "[parameters('azureContainerRegistryUsername')]",
+                            "passwordSecretRef": "azurecontainerregistrypasswordref"
+                        }
+                    ]
+                },
+                "template": {
+                    "containers": [
+                        {
+                            "image": "[concat(parameters('azureContainerRegistryServerUrl'), '/', parameters('azureContainerRegistryBackEndImageName'), ':', parameters('azureContainerRegistryBackEndImageTag'))]",
+                            "name": "serviceinvocationhttpbackend",
+                            "resources": {
+                                "cpu": 0.5,
+                                "memory": "1.0Gi"
+                            }
+                        }
+                    ],
+                    "scale": {
+                        "minReplicas": 1,
+                        "maxReplicas": 1
+                    }
+                }
+            }
+        }
+    ]
+}

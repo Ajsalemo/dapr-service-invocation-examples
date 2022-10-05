@@ -1,5 +1,0 @@
-{
-    "yaml.schemas": {
-        "kubernetes://schema/apps/v1%40deployment": "file:///c%3A/Users/ajssa/OneDrive/Documents/Code/dapr-examples/service-invocation/php/http/local/frontend.yaml"
-    }
-}
