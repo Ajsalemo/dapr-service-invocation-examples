@@ -1,0 +1,111 @@
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+version: 2
+updates:
+  - package-ecosystem: "npm" 
+    directory: "/node/http" 
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "npm" 
+    directory: "/node/sdk" 
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "docker"
+    directory: "/node/http"
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "docker"
+    directory: "/node/sdk"
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "docker"
+    directory: "/go/http"
+    schedule:
+      interval: "weekly"
+      
+  - package-ecosystem: "maven" 
+    directory: "/java/http" 
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "maven" 
+    directory: "/java/sdk" 
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "docker"
+    directory: "/java/sdk"
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "docker"
+    directory: "/java/http"
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "pip" 
+    directory: "/python/http" 
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "pip" 
+    directory: "/python/sdk" 
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "docker"
+    directory: "/python/http"
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "docker"
+    directory: "/python/sdk"
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "docker"
+    directory: "/dotnet/http"
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "docker"
+    directory: "/dotnet/sdk"
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "dotnet-sdk" 
+    directory: "/dotnet/sdk" 
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "dotnet-sdk" 
+    directory: "/httpk" 
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "docker"
+    directory: "/php/http"
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "docker"
+    directory: "/php/sdk"
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "composer" 
+    directory: "/php/http" 
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "composer" 
+    directory: "/php/sdk" 
+    schedule:
+      interval: "weekly"
