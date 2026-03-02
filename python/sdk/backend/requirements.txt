@@ -8,4 +8,4 @@ Jinja2==3.1.6
 MarkupSafe==3.0.3
 Werkzeug==3.1.6
 zipp==3.23.0
-dapr==1.7.0
+dapr==1.17.0
